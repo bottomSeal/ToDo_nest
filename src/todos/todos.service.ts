@@ -10,7 +10,7 @@ export class TodosService {
         return this.todoModel.findAll();
     }
 
-    async create(user: ToDo): Promise<ToDo> {
-        return this.todoModel.create(user);
+    async create(todo: ToDo): Promise<ToDo> {
+        return this.todoModel.create(todo);
     }
 }
