@@ -30,4 +30,9 @@ export class TodosController {
     async delete(@Param('id') id: string): Promise<void> {
         return this.todosService.delete(id);
     }
+
+    @Delete()
+    async deleteAll(): Promise<void> {
+        return this.todosService.deleteAll();
+    }
 }

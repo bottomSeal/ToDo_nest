@@ -33,4 +33,8 @@ export class TodosService {
         }
         await todo.destroy();
     }
+
+    async deleteAll(): Promise<void> {
+        await this.todoModel.destroy({ truncate: true });
+    }
 }
