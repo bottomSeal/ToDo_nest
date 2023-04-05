@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { ToDo } from './models/ToDo.model';
+import { CreateToDoDTO } from './dto/create-todo.dto';
+import { UpdateToDoDTO } from './dto/update-todo.dto';
 
 @Injectable()
 export class TodosService {
@@ -20,13 +22,13 @@ export class TodosService {
         return todo;
     }
 
-    async create(todo: ToDo): Promise<ToDo> {
+    async create(todo: CreateToDoDTO): Promise<ToDo> {
         return this.todosRepository.create(todo);
     }
 
-    async update(id: string, todo: ToDo): Promise<ToDo> {
+    async update(id: string, updateData: UpdateToDoDTO): Promise<ToDo> {
         const existingToDo = await this.findById(id);
-        return existingToDo.update(todo);
+        return existingToDo.update(updateData);
     }
 
     async delete(id: string): Promise<void> {
