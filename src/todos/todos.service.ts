@@ -1,17 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { ToDo } from './models/ToDo.model';
-import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class TodosService {
-    constructor(@InjectModel(ToDo) private todoModel: typeof ToDo) {}
+    constructor(
+        @Inject('TODOS_REPOSITORY')
+        private todosRepository: typeof ToDo
+        ) {}
 
     async findAll(): Promise<ToDo[]> {
-        return this.todoModel.findAll();
+        return this.todosRepository.findAll<ToDo>();
     }
 
     async findById(id: string): Promise<ToDo> {
-        const todo = await this.todoModel.findByPk(id);
+        const todo = await this.todosRepository.findByPk(id);
         if (!todo) {
             throw new NotFoundException('ToDo not found');
         }
@@ -19,7 +21,7 @@ export class TodosService {
     }
 
     async create(todo: ToDo): Promise<ToDo> {
-        return this.todoModel.create(todo);
+        return this.todosRepository.create(todo);
     }
 
     async update(id: string, todo: ToDo): Promise<ToDo> {
@@ -33,6 +35,6 @@ export class TodosService {
     }
 
     async deleteAll(): Promise<void> {
-        await this.todoModel.destroy({ truncate: true });
+        await this.todosRepository.destroy({ truncate: true });
     }
 }

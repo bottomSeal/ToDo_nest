@@ -1,11 +1,12 @@
 version: '3.9'
 services:
   db_todos:
-    restart: always
+    image: postgres:15.2-alpine
     container_name: db_todos
+    restart: always
     ports:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: qwerty
       POSTGRES_USER: admin
-    image: postgres:15.2-alpine
+    
