@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { ToDo } from './models/ToDo.model';
-import { CreateToDoDTO } from './dto/create-todo.dto';
-import { UpdateToDoDTO } from './dto/update-todo.dto';
+import { CreateToDoDto } from './dto/create-todo.dto';
+import { UpdateToDoDto } from './dto/update-todo.dto';
 
 @Controller('todos')
 export class TodosController {
@@ -19,15 +19,20 @@ export class TodosController {
     }
 
     @Post()
-    async create(@Body() todo: CreateToDoDTO): Promise<ToDo> {
-        return this.todosService.create(todo);
+    async create(@Body() сreateToDoDto: CreateToDoDto): Promise<ToDo> {
+        return this.todosService.create(сreateToDoDto);
     }
 
     @Patch(':id')
-    async update(@Param('id') id: string, @Body() updateData: UpdateToDoDTO): Promise<ToDo> {
-        return this.todosService.update(id, updateData);
+    async update(@Param('id') id: string, @Body() updateTodoDto: UpdateToDoDto): Promise<ToDo> {
+        return this.todosService.update(id, updateTodoDto);
     }
 
+    @Patch(':id/completed')
+    async setCompleting(@Param('id') id: string): Promise<ToDo> {
+        return this.todosService.setCompleting(id);
+    }
+    
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<void> {
         return this.todosService.delete(id);

@@ -30,7 +30,7 @@ export class ToDo extends Model<ToDo> {
     defaultValue: false,
     allowNull: false
   })
-  isCompleted: Boolean;
+  isCompleted: boolean;
 
   @CreatedAt
   createdAt: Date;

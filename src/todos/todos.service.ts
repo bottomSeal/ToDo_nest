@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { ToDo } from './models/ToDo.model';
-import { CreateToDoDTO } from './dto/create-todo.dto';
-import { UpdateToDoDTO } from './dto/update-todo.dto';
+import { CreateToDoDto } from './dto/create-todo.dto';
+import { UpdateToDoDto } from './dto/update-todo.dto';
 
 @Injectable()
 export class TodosService {
     constructor(
         @Inject('TODOS_REPOSITORY')
         private todosRepository: typeof ToDo
-        ) {}
+    ) {}
 
     async findAll(): Promise<ToDo[]> {
         return this.todosRepository.findAll<ToDo>();
@@ -22,13 +22,18 @@ export class TodosService {
         return todo;
     }
 
-    async create(todo: CreateToDoDTO): Promise<ToDo> {
+    async create(todo: CreateToDoDto): Promise<ToDo> {
         return this.todosRepository.create(todo);
     }
 
-    async update(id: string, updateData: UpdateToDoDTO): Promise<ToDo> {
+    async update(id: string, updateData: UpdateToDoDto): Promise<ToDo> {
         const existingToDo = await this.findById(id);
         return existingToDo.update(updateData);
+    }
+
+    async setCompleting(id: string): Promise<ToDo> {
+        const existingToDo = await this.findById(id);
+        return existingToDo.update({ "isCompleted": !existingToDo.isCompleted });
     }
 
     async delete(id: string): Promise<void> {

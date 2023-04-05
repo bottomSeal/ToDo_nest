@@ -1,6 +1,6 @@
 import { IsString,  IsDate, IsOptional } from "class-validator";
 
-export class CreateToDoDTO {
+export class CreateToDoDto {
     @IsString()
     readonly title: string;
 
