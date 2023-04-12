@@ -1,7 +1,7 @@
 import { ToDo } from "./models/ToDo.model";
 
 
-export const todosProviders = [
+export const TodosProvider = [
     {
         provide: 'TODOS_REPOSITORY',
         useValue: ToDo,

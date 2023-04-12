@@ -2,7 +2,7 @@ import { Table, Column, Model, CreatedAt } from 'sequelize-typescript';
 import { DataType } from 'sequelize-typescript';
 
 @Table({ tableName: "todos" })
-export class ToDo extends Model<ToDo> {
+export class ToDo extends Model {
   @Column({
     type: DataType.UUID,
     primaryKey: true,
