@@ -1,5 +1,5 @@
-import { Table, Column, Model, CreatedAt } from 'sequelize-typescript';
-import { DataType } from 'sequelize-typescript';
+import { Table, Column, Model, CreatedAt, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript';
+import { User } from 'src/users/models/User.model';
 
 @Table({ tableName: "todos" })
 export class ToDo extends Model {
@@ -9,7 +9,7 @@ export class ToDo extends Model {
     defaultValue: DataType.UUIDV4,
     allowNull: false
   })
-  id: string;
+  todoId: string;
 
   @Column({
     type: DataType.STRING,
@@ -41,4 +41,14 @@ export class ToDo extends Model {
     allowNull: true
   })
   dueDate: Date;
+
+  @ForeignKey(() => User)
+  @Column({
+      type: DataType.UUID,
+      allowNull: false,
+  })
+  userId: string;
+
+  @BelongsTo(() => User)
+  user: User;
 }
