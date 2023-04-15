@@ -1,5 +1,4 @@
-import { ToDo } from "./models/ToDo.model";
-
+import { ToDo } from "src/models/ToDo.model";
 
 export const TodosProvider = [
     {
