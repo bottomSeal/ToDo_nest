@@ -1,6 +1,6 @@
 import { Table, Column, Model, CreatedAt, HasMany } from 'sequelize-typescript';
 import { DataType } from 'sequelize-typescript';
-import { ToDo } from 'src/todos/models/ToDo.model';
+import { ToDo } from './ToDo.model';
 
 @Table({ tableName: "users" })
 export class User extends Model {

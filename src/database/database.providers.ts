@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import { databaseConfig } from './database.config';
-import { ToDo } from 'src/todos/models/ToDo.model';
-import { User } from 'src/users/models/User.model';
+import { ToDo } from 'src/models/ToDo.model';
+import { User } from 'src/models/User.model';
 
 
 export const databaseProviders = [{
