@@ -3,13 +3,6 @@ import { User } from './User.model';
 
 @Table({ tableName: "token" })
 export class Token extends Model {
-    @Column({
-        type: DataType.STRING,
-        unique: true,
-        allowNull: false,
-    })
-    value: string;
-
     @ForeignKey(() => User)
     @Column({
         type: DataType.UUID,
@@ -19,6 +12,13 @@ export class Token extends Model {
 
     @BelongsTo(() => User)
     user: User;
+
+    @Column({
+        type: DataType.STRING,
+        unique: true,
+        allowNull: false,
+    })
+    value: string;
 
     @CreatedAt
     createdAt: Date;
