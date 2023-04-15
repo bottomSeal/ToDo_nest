@@ -4,9 +4,6 @@ import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
     imports: [DatabaseModule],
-    controllers: [],
-    providers: [, 
-        ...UsersProvider,
-    ],
+    providers: [...UsersProvider],
 })
 export class UsersModule {}
