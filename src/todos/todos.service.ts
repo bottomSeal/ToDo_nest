@@ -23,7 +23,7 @@ export class TodosService {
     }
 
     async create(todo: CreateToDoDto): Promise<ToDo> {
-        return this.todosRepository.create(todo);
+        return this.todosRepository.create({...todo});
     }
 
     async update(id: string, updateData: UpdateToDoDto): Promise<ToDo> {
