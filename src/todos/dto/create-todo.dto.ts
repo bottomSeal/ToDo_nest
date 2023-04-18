@@ -9,5 +9,5 @@ export class CreateToDoDto {
 
     @IsOptional()
     @IsDate()
-    readonly dueDate: Date;
+    readonly dueDate?: Date;
 }
