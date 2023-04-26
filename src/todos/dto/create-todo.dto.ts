@@ -10,4 +10,7 @@ export class CreateToDoDto {
     @IsOptional()
     @IsDate()
     readonly dueDate?: Date;
+
+    @IsString()
+    readonly userId: string;
 }
