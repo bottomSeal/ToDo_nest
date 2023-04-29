@@ -16,19 +16,12 @@ export class AuthService {
         private tokensRepository: typeof Token
     ) {}
 
-    async verifyToken(xAccessToken: string): Promise<boolean> {
-        const accessToken = xAccessToken.slice(0, 20);
-        const userId = xAccessToken.slice(20);
-        const token = await this.tokensRepository.findOne({ where: { value: accessToken, userId: userId} });
+    async verifyToken(xAccessToken: string): Promise<String> {
+        const token = await this.tokensRepository.findOne({ where: { value: xAccessToken } });
         if (!token) {
-            console.log("hasdads");
             throw new UnauthorizedException('Invalid token');
         }
-        return true;
-    }
-
-    async getAllTokensForUser(userId: string): Promise<Token[]> {
-        return this.tokensRepository.findAll();
+        return token.userId;
     }
 
     async signUp(createUserDto: CreateUserDto): Promise<String> {
@@ -44,21 +37,26 @@ export class AuthService {
             throw new UserAlreadyExistsException(`User with username ${username} already exists`);
         }
 
-        await this.usersRepository.create({...createUserDto});
+        await this.usersRepository.create({ ...createUserDto });
 
         return await this.signIn({ username, password });
     }
 
     async signIn(signInDto: SignInDto): Promise<String> {
-        const user = await this.usersRepository.findOne({ where: {...signInDto} }) 
+        const user = await this.usersRepository.findOne({ where: { ...signInDto } })
         if (!user) {
             throw new UnauthorizedException('Invalid username or password');
         }
-        
+
         const tokenValue = nanoid(20);
         await Token.create({ value: tokenValue, userId: user.userId });
 
-        const xAccessToken = tokenValue + user.userId;
+        const xAccessToken = tokenValue;
         return xAccessToken;
+    }
+
+    async logOut(userId: string): Promise<void> {
+        const userAccess = await this.tokensRepository.findOne({where: { userId }});
+        await userAccess.destroy();
     }
 }
