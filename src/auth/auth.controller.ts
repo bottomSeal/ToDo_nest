@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { SignInDto } from 'src/users/dto/sign-in.dto';
@@ -18,8 +18,8 @@ export class AuthController {
         return this.authService.signIn(signInDto);
     }
 
-    @Post('logout')
-    async logOut(@Body() userId: string): Promise<void> {
-        return this.authService.logOut( userId );
+    @Delete('logout')
+    async logOut(@Req() req: Request): Promise<void> {
+        return this.authService.logOut(req['userId']);
     }
 }

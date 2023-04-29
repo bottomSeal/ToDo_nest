@@ -17,11 +17,11 @@ export class AuthService {
     ) {}
 
     async verifyToken(xAccessToken: string): Promise<String> {
-        const token = await this.tokensRepository.findOne({ where: { value: xAccessToken } });
-        if (!token) {
+        const access = await this.tokensRepository.findOne({ where: { value: xAccessToken } });
+        if (!access) {
             throw new UnauthorizedException('Invalid token');
         }
-        return token.userId;
+        return access.userId;
     }
 
     async signUp(createUserDto: CreateUserDto): Promise<String> {
@@ -56,7 +56,7 @@ export class AuthService {
     }
 
     async logOut(userId: string): Promise<void> {
-        const userAccess = await this.tokensRepository.findOne({where: { userId }});
+        const userAccess = await this.tokensRepository.findOne({where: { userId: userId }});
         await userAccess.destroy();
     }
 }
