@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Req } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateToDoDto } from './dto/create-todo.dto';
 import { UpdateToDoDto } from './dto/update-todo.dto';
@@ -10,37 +10,37 @@ export class TodosController {
     constructor(private readonly todosService: TodosService) {}
 
     @Get()
-    async findAll(req: Request): Promise<ToDo[]> {
+    async findAll(@Req() req: Request): Promise<ToDo[]> {
         return this.todosService.findAll(req['userId']);
     }
 
     @Get(':id')
-    async findById(@Param('id') id: string, req: Request): Promise<ToDo> {
+    async findById(@Param('id') id: string, @Req() req: Request): Promise<ToDo> {
         return this.todosService.findById(id, req['userId']);
     }
 
     @Post()
-    async create(@Body() сreateToDoDto: CreateToDoDto, req: Request): Promise<ToDo> {
+    async create(@Body() сreateToDoDto: CreateToDoDto, @Req() req: Request): Promise<ToDo> {
         return this.todosService.create(сreateToDoDto, req['userId']);
     }
 
     @Patch(':id')
-    async update(@Param('id') id: string, @Body() updateTodoDto: UpdateToDoDto, req: Request): Promise<ToDo> {
+    async update(@Param('id') id: string, @Body() updateTodoDto: UpdateToDoDto, @Req() req: Request): Promise<ToDo> {
         return this.todosService.update(id, updateTodoDto, req['userId']);
     }
 
     @Patch(':id/completed')
-    async setCompleting(@Param('id') id: string, req: Request): Promise<ToDo> {
+    async setCompleting(@Param('id') id: string, @Req() req: Request): Promise<ToDo> {
         return this.todosService.setCompleting(id, req['userId']);
     }
     
     @Delete(':id')
-    async delete(@Param('id') id: string, req: Request): Promise<void> {
+    async delete(@Param('id') id: string, @Req() req: Request): Promise<void> {
         return this.todosService.delete(id, req['userId']);
     }
 
     @Delete()
-    async deleteAll(req: Request): Promise<void> {
+    async deleteAll(@Req() req: Request): Promise<void> {
         return this.todosService.deleteAll(req['userId']);
     }
 }
