@@ -13,10 +13,11 @@ export class AuthMiddleware implements NestMiddleware {
         }
 
         try {
-            await this.authService.verifyToken(xAccessToken);
+            const userId = await this.authService.verifyToken(xAccessToken);
+            req['userId'] = userId;
             next();
         } catch (error) {
-            return res.status(401).json({ message: 'Invalid token' });
+            return res.status(403).json({ message: 'Invalid token' });
         }
     }
 }
