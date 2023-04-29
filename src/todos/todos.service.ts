@@ -10,38 +10,38 @@ export class TodosService {
         private todosRepository: typeof ToDo
     ) {}
 
-    async findAll(): Promise<ToDo[]> {
-        return this.todosRepository.findAll<ToDo>();
+    async findAll(userId: string): Promise<ToDo[]> {
+        return await this.todosRepository.findAll({ where: {userId: userId} });
     }
 
-    async findById(id: string): Promise<ToDo> {
-        const todo = await this.todosRepository.findByPk(id);
+    async findById(id: string, userId: string): Promise<ToDo> {
+        const todo = await this.todosRepository.findOne({ where: {id: id, userId: userId} });
         if (!todo) {
             throw new NotFoundException('ToDo not found');
         }
         return todo;
     }
 
-    async create(todo: CreateToDoDto): Promise<ToDo> {
-        return this.todosRepository.create({...todo});
+    async create(todo: CreateToDoDto, userId: string): Promise<ToDo> {
+        return this.todosRepository.create({...todo, userId: userId});
     }
 
-    async update(id: string, updateData: UpdateToDoDto): Promise<ToDo> {
-        const existingToDo = await this.findById(id);
+    async update(id: string, updateData: UpdateToDoDto, userId: string): Promise<ToDo> {
+        const existingToDo = await this.findById(id, userId);
         return existingToDo.update(updateData);
     }
 
-    async setCompleting(id: string): Promise<ToDo> {
-        const existingToDo = await this.findById(id);
+    async setCompleting(id: string, userId: string): Promise<ToDo> {
+        const existingToDo = await this.findById(id, userId);
         return existingToDo.update({ "isCompleted": !existingToDo.isCompleted });
     }
 
-    async delete(id: string): Promise<void> {
-        const todo = await this.findById(id);
+    async delete(id: string, userId: string): Promise<void> {
+        const todo = await this.findById(id, userId);
         await todo.destroy();
     }
 
-    async deleteAll(): Promise<void> {
-        await this.todosRepository.destroy({ truncate: true });
+    async deleteAll(userId: string): Promise<void> {
+        await this.todosRepository.destroy({ where: {userId: userId} });
     }
 }
