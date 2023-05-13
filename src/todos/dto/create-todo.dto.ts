@@ -1,4 +1,4 @@
-import { IsString,  IsDate, IsOptional } from "class-validator";
+import { IsString, IsDate, IsOptional } from "class-validator";
 
 export class CreateToDoDto {
     @IsString()

@@ -4,7 +4,7 @@ import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     async use(req: Request, res: Response, next: NextFunction) {
         const xAccessToken = req.headers['x-access-token'] as string;

@@ -6,10 +6,10 @@ import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     @Post('signup')
-    async signUp(@Body() signUpserDto: SignUpUserDto): Promise<String> { 
+    async signUp(@Body() signUpserDto: SignUpUserDto): Promise<String> {
         return this.authService.signUp(signUpserDto);
     }
 

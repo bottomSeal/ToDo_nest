@@ -13,8 +13,8 @@ import { AuthMiddleware } from 'src/middlewares/auth.middleware';
 })
 export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
-      consumer
-          .apply(AuthMiddleware) 
-          .forRoutes('/auth/logout'); 
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes('/auth/logout');
   }
 }

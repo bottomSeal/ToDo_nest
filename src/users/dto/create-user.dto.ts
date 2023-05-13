@@ -5,7 +5,7 @@ export class SignUpUserDto {
     readonly username: string;
 
     @IsString()
-    @MinLength(8)   
+    @MinLength(8)
     readonly password: string;
 
     @IsEmail()

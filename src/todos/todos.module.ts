@@ -11,8 +11,8 @@ import { UsersProvider } from 'src/users/users.providers';
 @Module({
     imports: [DatabaseModule],
     controllers: [TodosController],
-    providers: [TodosService, 
-        ...TodosProvider, 
+    providers: [TodosService,
+        ...TodosProvider,
         AuthService,
         ...TokensProvider,
         ...UsersProvider
@@ -21,7 +21,7 @@ import { UsersProvider } from 'src/users/users.providers';
 export class TodosModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
-            .apply(AuthMiddleware) 
-            .forRoutes(TodosController); 
+            .apply(AuthMiddleware)
+            .forRoutes(TodosController);
     }
 }

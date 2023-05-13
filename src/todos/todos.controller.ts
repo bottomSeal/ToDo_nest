@@ -7,7 +7,7 @@ import { Request } from 'express';
 
 @Controller('todos')
 export class TodosController {
-    constructor(private readonly todosService: TodosService) {}
+    constructor(private readonly todosService: TodosService) { }
 
     @Get()
     async findAll(@Req() req: Request): Promise<ToDo[]> {
@@ -33,7 +33,7 @@ export class TodosController {
     async setCompleting(@Param('id') id: string, @Req() req: Request): Promise<ToDo> {
         return this.todosService.setCompleting(id, req['userId']);
     }
-    
+
     @Delete(':id')
     async delete(@Param('id') id: string, @Req() req: Request): Promise<void> {
         return this.todosService.delete(id, req['userId']);

@@ -8,4 +8,4 @@ import { AuthModule } from 'src/auth/auth.module';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

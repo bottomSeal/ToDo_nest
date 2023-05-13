@@ -14,7 +14,7 @@ export class AuthService {
 
         @Inject('TOKENS_REPOSITORY')
         private tokensRepository: typeof Token
-    ) {}
+    ) { }
 
     async verifyToken(xAccessToken: string): Promise<String> {
         const access = await this.tokensRepository.findOne({ where: { value: xAccessToken } });
@@ -55,7 +55,7 @@ export class AuthService {
     }
 
     async logOut(xAccessToken: string): Promise<void> {
-        const userAccess = await this.tokensRepository.findOne({where: { value: xAccessToken }});
+        const userAccess = await this.tokensRepository.findOne({ where: { value: xAccessToken } });
         await userAccess.destroy();
     }
 }

@@ -6,4 +6,4 @@ import { DatabaseModule } from 'src/database/database.module';
     imports: [DatabaseModule],
     providers: [...TokensProvider]
 })
-export class TokensModule {}
+export class TokensModule { }
