@@ -2,7 +2,7 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserAlreadyExistsException } from 'src/exceptions/user-already-exists.exeption';
 import { Token } from 'src/models/Token.model';
 import { User } from 'src/models/User.model';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { SignUpUserDto } from 'src/users/dto/create-user.dto';
 import { SignInDto } from 'src/users/dto/sign-in.dto';
 import { nanoid } from 'nanoid';
 
@@ -24,8 +24,8 @@ export class AuthService {
         return access.userId;
     }
 
-    async signUp(createUserDto: CreateUserDto): Promise<String> {
-        const { email, username, password } = createUserDto;
+    async signUp(signUpUserDto: SignUpUserDto): Promise<String> {
+        const { email, username, password } = signUpUserDto;
 
         const userWithSameEmail = await this.usersRepository.findOne({ where: { email } });
         if (userWithSameEmail) {
@@ -37,7 +37,7 @@ export class AuthService {
             throw new UserAlreadyExistsException(`User with username ${username} already exists`);
         }
 
-        await this.usersRepository.create({ ...createUserDto });
+        await this.usersRepository.create({ ...signUpUserDto });
 
         return await this.signIn({ username, password });
     }

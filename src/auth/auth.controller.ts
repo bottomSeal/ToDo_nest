@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, Delete } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { SignUpUserDto } from 'src/users/dto/create-user.dto';
 import { SignInDto } from 'src/users/dto/sign-in.dto';
 import { Request } from 'express';
 
@@ -9,8 +9,8 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post('signup')
-    async signUp(@Body() createUserDto: CreateUserDto): Promise<String> { 
-        return this.authService.signUp(createUserDto);
+    async signUp(@Body() signUpserDto: SignUpUserDto): Promise<String> { 
+        return this.authService.signUp(signUpserDto);
     }
 
     @Get('signin')

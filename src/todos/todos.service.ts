@@ -8,14 +8,14 @@ export class TodosService {
     constructor(
         @Inject('TODOS_REPOSITORY')
         private todosRepository: typeof ToDo
-    ) {}
+    ) { }
 
     async findAll(userId: string): Promise<ToDo[]> {
-        return await this.todosRepository.findAll({ where: {userId: userId} });
+        return await this.todosRepository.findAll({ where: { userId: userId } });
     }
 
     async findById(id: string, userId: string): Promise<ToDo> {
-        const todo = await this.todosRepository.findOne({ where: {id: id, userId: userId} });
+        const todo = await this.todosRepository.findOne({ where: { id: id, userId: userId } });
         if (!todo) {
             throw new NotFoundException('ToDo not found');
         }
@@ -23,7 +23,7 @@ export class TodosService {
     }
 
     async create(todo: CreateToDoDto, userId: string): Promise<ToDo> {
-        return this.todosRepository.create({...todo, userId: userId});
+        return this.todosRepository.create({ ...todo, userId: userId });
     }
 
     async update(id: string, updateData: UpdateToDoDto, userId: string): Promise<ToDo> {
@@ -42,6 +42,6 @@ export class TodosService {
     }
 
     async deleteAll(userId: string): Promise<void> {
-        await this.todosRepository.destroy({ where: {userId: userId} });
+        await this.todosRepository.destroy({ where: { userId: userId } });
     }
 }
