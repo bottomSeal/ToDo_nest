@@ -15,6 +15,7 @@ export class AuthMiddleware implements NestMiddleware {
         try {
             const userId = await this.authService.verifyToken(xAccessToken);
             req['userId'] = userId;
+            req['x-access-token'] = xAccessToken;
             next();
         } catch (error) {
             return res.status(403).json({ message: 'Invalid token' });

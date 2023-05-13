@@ -49,14 +49,13 @@ export class AuthService {
         }
 
         const tokenValue = nanoid(20);
-        await Token.create({ value: tokenValue, userId: user.userId });
+        await this.tokensRepository.create({ value: tokenValue, userId: user.userId });
 
-        const xAccessToken = tokenValue;
-        return xAccessToken;
+        return tokenValue;
     }
 
-    async logOut(userId: string): Promise<void> {
-        const userAccess = await this.tokensRepository.findOne({where: { userId: userId }});
+    async logOut(xAccessToken: string): Promise<void> {
+        const userAccess = await this.tokensRepository.findOne({where: { value: xAccessToken }});
         await userAccess.destroy();
     }
 }

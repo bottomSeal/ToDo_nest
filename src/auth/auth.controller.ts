@@ -20,6 +20,6 @@ export class AuthController {
 
     @Delete('logout')
     async logOut(@Req() req: Request): Promise<void> {
-        return this.authService.logOut(req['userId']);
+        return this.authService.logOut(req['x-access-token']);
     }
 }
