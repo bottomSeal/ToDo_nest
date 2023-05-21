@@ -14,8 +14,8 @@ export class TodosService {
         return await this.todosRepository.findAll({ where: { userId: userId } });
     }
 
-    async findById(id: string, userId: string): Promise<ToDo> {
-        const todo = await this.todosRepository.findOne({ where: { id: id, userId: userId } });
+    async findById(todoId: string, userId: string): Promise<ToDo> {
+        const todo = await this.todosRepository.findOne({ where: { todoId: todoId, userId: userId } });
         if (!todo) {
             throw new NotFoundException('ToDo not found');
         }
@@ -26,18 +26,18 @@ export class TodosService {
         return this.todosRepository.create({ ...todo, userId: userId });
     }
 
-    async update(id: string, updateData: UpdateToDoDto, userId: string): Promise<ToDo> {
-        const existingToDo = await this.findById(id, userId);
+    async update(todoId: string, updateData: UpdateToDoDto, userId: string): Promise<ToDo> {
+        const existingToDo = await this.findById(todoId, userId);
         return existingToDo.update(updateData);
     }
 
-    async setCompleting(id: string, userId: string): Promise<ToDo> {
-        const existingToDo = await this.findById(id, userId);
+    async setCompleting(todoId: string, userId: string): Promise<ToDo> {
+        const existingToDo = await this.findById(todoId, userId);
         return existingToDo.update({ "isCompleted": !existingToDo.isCompleted });
     }
 
-    async delete(id: string, userId: string): Promise<void> {
-        const todo = await this.findById(id, userId);
+    async delete(todoId: string, userId: string): Promise<void> {
+        const todo = await this.findById(todoId, userId);
         await todo.destroy();
     }
 
